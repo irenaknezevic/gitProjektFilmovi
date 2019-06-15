@@ -1,0 +1,27 @@
+<div id="table-scroll" >
+	<table class="table table-hover" id="mojaTablica">
+		<thead>
+			<tr>
+				<th>R.br.</th>
+				<th>Naziv filma</th>
+				<th>Godina</th>
+				<th>Žanr</th>
+				<th>Ocjena</th>
+				<th>Pregled</th>
+				<th>Obriši</th>
+			</tr>
+		</thead>
+
+		<tbody>
+			<tr ng-repeat="oFilm in oFilmovi | filter: inputTekst ">
+				<td>{{$index + 1}}.</td>
+				<td>{{oFilm.naziv_filma}}</td>
+				<td>{{oFilm.godina}}.</td>
+				<td>{{oFilm.zanr}}</td>
+				<td>{{oFilm.moja_ocjena}}</td>	
+				<td><a href="templates/prikaz_filma_temp.html" class="glyphicon glyphicon-search" aria-hidden="true" role="button" ng-click="dohvatiID(oFilm.film_id)"></a></td>
+				<td><a href="javascript:GetModal('modals.php?modal_id=obrisi_film&film_id='+localStorage.getItem('film_id'));" class="glyphicon glyphicon-trash" role="button" ng-click="dohvatiID(oFilm.film_id)"></a></td>
+			</tr>
+		</tbody>
+	</table>
+</div>

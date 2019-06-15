@@ -1,0 +1,93 @@
+html
+{
+	height: 100%;
+}
+body
+{
+	background-image: url("../img/sjedala.jpg");
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+.navbar
+{
+	background-color: rgba(213, 213, 209, 0.5);
+}
+#korisnik
+{
+	display: inline-block;
+	margin-right: 10px;
+	font-weight: bold;
+	color: white;
+}
+#odjava
+{
+	margin-right: 10px;
+}
+.container-fluid
+{
+	margin-top: 4px;
+	float: right;
+}
+.container
+{
+	margin-top: 10vh;
+
+}
+h1
+{
+	color: white;
+	font-family: 'Fredoka One', cursive;
+	font-size: 50px;
+}
+#trazilica
+{
+	display: inline-block;
+	max-width: 250px;
+	margin-right: 10px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+select
+{
+	display: inline-block;
+	max-width: 150px;
+	margin-right: 10px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+#btn_dodaj
+{
+	width: 50px;
+	float: right;
+}
+
+table
+{
+	margin-top: 10px;
+	color: black;
+	background-color: white;
+}
+thead
+{
+	color: white;
+	background-color: #3F3F3F;
+}
+thead, tbody 
+{ 
+	display: block; 
+}
+tbody 
+{
+    height: 300px;       
+    overflow-y: auto;    
+    overflow-x: hidden;  
+}
+thead th, tbody td 
+{
+	width: 15.82% !important;
+}
+thead th
+{
+	text-align: left;
+}

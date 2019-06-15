@@ -1,0 +1,42 @@
+html
+{
+	height: 100%;
+}
+body
+{
+	background-image: url("../img/film.jpg");
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+.loginbox
+{
+	width: 320px;
+	height: 420px;
+	background-color: rgba(213, 213, 209, 0.6);
+	top: 50%;
+	left: 50%;
+	position: absolute;
+	transform: translate(-50%, -50%);
+	box-sizing: border-box;
+	text-align: center;
+	border-radius: 15px;
+}
+
+.form-horizontal
+{
+	margin-top: 30px;
+	padding-left: 20px;
+}
+
+.modal-footer
+{
+	margin-top: 65px;
+}
+
+.slika
+{
+	margin: 30px auto;
+	width: 100px;
+	height: 100px;
+}

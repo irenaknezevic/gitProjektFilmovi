@@ -1,0 +1,59 @@
+html
+{
+	height: 100%;
+}
+.navbar
+{
+	background-color:#3F3F3F;
+}
+#nazad
+{
+	margin-left: 8px;
+	margin-top: 8px;
+}
+#btn_dodaj
+{
+	margin-top: 8px;
+	margin-right: 8px;
+	margin-bottom: 8px;
+}
+h1
+{
+	color: black;
+	font-family: 'Fredoka One', cursive;
+	font-size: 50px;
+}
+.container
+{
+	margin-top: 15vh;
+	
+}
+#info
+{
+	display: inline-block;
+	margin-left: 20px;
+	width: 500px;
+	margin-top: 10px !important;
+}
+p
+{
+	font-size: 18px;
+}
+span
+{
+	font-weight: bold;
+}
+#slika
+{
+	display: inline-flex;
+	margin-top: 5vh;
+}
+img
+{
+	width: 300px;
+	height: 400px;
+}
+select
+{
+	max-width: 160px;
+}
