@@ -2,14 +2,22 @@
 session_start();
 if(!empty($_SESSION['ime']))
 {
+	if(!empty($_SESSION['movieWarning']))
+	{
+	?>
+	    <script type="text/javascript">
+	        alert("Film je već dodan u 'Moji filmovi'!");
+	    </script>
+	<?php
+	unset($_SESSION['movieWarning']);
+	}
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <title>Moji filmovi</title>
     <script src="js/angular.min.js"></script>
-	<script src="js/angular-route.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">

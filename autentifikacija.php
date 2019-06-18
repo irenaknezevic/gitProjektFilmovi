@@ -3,7 +3,21 @@ include 'connection.php';
 
 header('Content-type: charset=utf-8');
 
-$sQuery = 'SELECT * FROM korisnici WHERE korisnicko_ime="'.$_POST['korime'].'" AND lozinka="'.$_POST['lozinka'].'"';
+session_start();
+$sQuery = '';
+if(!empty($_POST['korime']) && !empty($_POST['lozinka']))
+{
+	$sQuery = 'SELECT * FROM korisnici WHERE korisnicko_ime="'.$_POST['korime'].'" AND lozinka="'.$_POST['lozinka'].'"';
+}
+elseif (!empty($_SESSION['user_id'])) {
+	$sQuery = "SELECT * FROM korisnici WHERE korisnik_id=".$_SESSION['user_id'];
+	session_destroy();
+}
+else
+{
+	header("Location: pocetna.php");
+}
+
 
 $oStatement = $oConnection->query($sQuery);
 $oData = $oStatement->fetch(PDO::FETCH_ASSOC);

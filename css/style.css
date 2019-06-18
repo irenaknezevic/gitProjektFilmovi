@@ -34,9 +34,19 @@ body
 	margin-top: 65px;
 }
 
+#loginButton{
+	float: right;
+	margin-left: 5px;
+}
+
 .slika
 {
 	margin: 30px auto;
 	width: 100px;
 	height: 100px;
+}
+
+.modal-content{
+	color: white;
+	background-color: rgba(0,0,0, 0.7);
 }

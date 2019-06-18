@@ -11,17 +11,18 @@
 				<th>Obriši</th>
 			</tr>
 		</thead>
-
+			
 		<tbody>
-			<tr ng-repeat="oFilm in oFilmovi | filter: inputTekst ">
+			<tr ng-repeat="oFilm in oFilmovi | filter: inputTekst">
 				<td>{{$index + 1}}.</td>
-				<td>{{oFilm.naziv_filma}}</td>
-				<td>{{oFilm.godina}}.</td>
-				<td>{{oFilm.zanr}}</td>
-				<td>{{oFilm.moja_ocjena}}</td>	
-				<td><a href="templates/prikaz_filma_temp.html" class="glyphicon glyphicon-search" aria-hidden="true" role="button" ng-click="dohvatiID(oFilm.film_id)"></a></td>
-				<td><a href="javascript:GetModal('modals.php?modal_id=obrisi_film&film_id='+localStorage.getItem('film_id'));" class="glyphicon glyphicon-trash" role="button" ng-click="dohvatiID(oFilm.film_id)"></a></td>
+				<td class="tdPolje">{{oFilm.naziv_filma}}</td>
+				<td class="tdPolje">{{oFilm.godina}}.</td>
+				<td class="tdPolje">{{oFilm.zanr}}</td>
+				<td class="tdPolje">{{oFilm.moja_ocjena}}</td>	
+				<td class="tdPolje"><a href="templates/prikaz_filma_temp.html" class="glyphicon glyphicon-search" aria-hidden="true" role="button" ng-click="dohvatiID(oFilm.film_id)"></a></td>
+				<td class="tdPolje"><a href="javascript:GetModal('modals.php?modal_id=obrisi_film&film_id='+localStorage.getItem('film_id'));" class="glyphicon glyphicon-trash" role="button" ng-click="dohvatiID(oFilm.film_id)"></a></td>
 			</tr>
 		</tbody>
+
 	</table>
 </div>

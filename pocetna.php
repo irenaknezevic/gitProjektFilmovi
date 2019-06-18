@@ -1,3 +1,18 @@
+<?php 
+
+session_start();
+if(!empty($_SESSION['usernameTaken']))
+{
+?>
+	<script type="text/javascript">
+		alert('Korisničko ime je zauzeto!');
+	</script>
+<?php
+	unset($_SESSION['usernameTaken']);
+	session_destroy();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,7 +26,7 @@
 <body>
 	<div class="loginbox">
 		<img src="img/korisnik.png" class="slika">
-		<form class="form-horizontal" action="autentifikacija.php" method="POST">
+		<form id="formaPrijava" class="form-horizontal" action="autentifikacija.php" method="POST">
 			<div class="form-group">
 						<label class="control-label col-lg-3 col-xs-3">Korisničko ime:</label>
 						<div class="col-lg-8 col-xs-8"><input class="form-control" type="text" name="korime" required></div>
@@ -23,9 +38,21 @@
 			</div>
 
 			<div class="modal-footer">
-						<button type="submit" class="btn btn-danger btn-s">Prijava</button>
-			</div>
+						<button id="loginButton" type="submit" class="btn btn-danger btn-s">Prijava</button>
 		</form>
+						<button type="button" class="btn btn-primary btn-s" onclick="GetModal('modals.php?modal_id=novi_korisnik')">Registriraj se</button>
+			</div>
+		
 	</div>
+
+	<div class="modal" id="modals" tabindex="-1" role="dialog" aria-labelledby="" aria-hiddeen="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				
+			</div>
+		</div>
+	</div>
+	
+	<script src="js/globals.js"></script>
 </body>
 </html>

@@ -3,9 +3,9 @@ include 'connection.php';
 
 $sQuery = 'CREATE TABLE IF NOT EXISTS `bazafilmovi`.`korisnici` (
   `korisnik_id` INT NOT NULL AUTO_INCREMENT,
-  `ime` VARCHAR(45) NULL,
-  `korisnicko_ime` VARCHAR(45) NULL,
-  `lozinka` VARCHAR(45) NULL,
+  `ime` VARCHAR(45) NOT NULL,
+  `korisnicko_ime` VARCHAR(45) NOT NULL,
+  `lozinka` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`korisnik_id`))
 ENGINE = InnoDB;
 
@@ -27,6 +27,37 @@ CREATE TABLE IF NOT EXISTS `bazafilmovi`.`filmovi` (
   CONSTRAINT `fk_film_korisnik`
     FOREIGN KEY (`korisnik_id`)
     REFERENCES `bazafilmovi`.`korisnici` (`korisnik_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS `bazafilmovi`.`preporuceni_filmovi` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `posiljatelj_id` INT NULL,
+  `primatelj_id` INT NULL,
+  `imdb_id` VARCHAR(20) NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_film_posiljatelj`
+    FOREIGN KEY (`posiljatelj_id`)
+    REFERENCES `bazafilmovi`.`korisnici` (`korisnik_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_film_primatelj`
+    FOREIGN KEY (`primatelj_id`)
+    REFERENCES `bazafilmovi`.`korisnici` (`korisnik_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS `bazafilmovi`.`ocjene` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `film_id` INT NULL,
+  `ocjena` INT NULL,
+  `vrijeme_datum` VARCHAR(50) NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_ocjena_film`
+    FOREIGN KEY (`film_id`)
+    REFERENCES `bazafilmovi`.`filmovi` (`film_id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB;

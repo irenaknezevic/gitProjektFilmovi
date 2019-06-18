@@ -8,6 +8,7 @@ body
 	background-size: cover;
 	background-position: center;
 	background-repeat: no-repeat;
+	min-width: 430px;
 }
 .navbar
 {
@@ -64,6 +65,7 @@ select
 
 table
 {
+	table-layout: fixed;
 	margin-top: 10px;
 	color: black;
 	background-color: white;
@@ -74,8 +76,8 @@ thead
 	background-color: #3F3F3F;
 }
 thead, tbody 
-{ 
-	display: block; 
+{
+	display: block;
 }
 tbody 
 {
@@ -83,11 +85,16 @@ tbody
     overflow-y: auto;    
     overflow-x: hidden;  
 }
-thead th, tbody td 
-{
-	width: 15.82% !important;
+th, td{
+	width: 200px;
+	min-width: 14.29%!important;
 }
-thead th
+.tdPolje
+{
+	min-width: 14.29%!important;
+	/*text-align: center;*/
+}
+th
 {
 	text-align: left;
 }
