@@ -9,8 +9,18 @@ if(!empty($_SESSION['usernameTaken']))
 	</script>
 <?php
 	unset($_SESSION['usernameTaken']);
-	session_destroy();
 }
+
+if(!empty($_SESSION['authFail']))
+{
+?>
+	<script type="text/javascript">
+		alert("Pogrešno korisničko ime ili lozinka, pokušajte ponovo!");
+	</script>
+<?php
+	unset($_SESSION['authFail']);
+}
+session_destroy();
 ?>
 
 <!DOCTYPE html>

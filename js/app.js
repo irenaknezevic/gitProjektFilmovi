@@ -254,6 +254,79 @@ function spremiSve(event)
 	inputOcjena.setAttribute("value", mojaOcjena);
 }
 
+function CheckboxKorisnici()
+{
+	var stringUsers = '';
+	var users = document.querySelectorAll('input[name="korisnik"]');
+
+	var korisnici = document.querySelector('input[name="korisnici"]');
+
+	users.forEach(function(user)
+	{
+		if(user.checked)
+		{
+			if(stringUsers != '')
+			{
+				stringUsers += ", '" + user.value + "'";
+			}
+			else
+			{
+				stringUsers += "'" + user.value + "'";
+			}
+		}
+	});
+
+	if(stringUsers != '')
+	{
+		users.forEach(function(user)
+		{
+			user.removeAttribute('required');
+		});
+	}
+	else
+	{
+		users.forEach(function(user)
+		{
+			user.setAttribute('required', true);
+		});
+	}
+	korisnici.value = stringUsers;
+}
+
+//Preporuka filmova
+
+var btnOznaci = document.querySelector('#oznaciKorisnike');
+var btnOdznaci = document.querySelector('#odznaciKorisnike');
+
+function OznaciSveKorisnike()
+{
+	var users = document.querySelectorAll('input[name="korisnik"]');
+
+	users.forEach(function(user)
+	{
+		user.setAttribute('checked', true);
+	});
+
+	btnOznaci.style.display = "none";
+	btnOdznaci.style.display = "inline-block";
+
+	CheckboxKorisnici();
+}
+
+function OdznaciSveKorisnike()
+{
+	var users = document.querySelectorAll('input[name="korisnik"]');
+
+	users.forEach(function(user)
+	{
+		user.removeAttribute('checked');
+	});
+
+	btnOznaci.style.display = "inline-block";
+	btnOdznaci.style.display = "none";
+
+	CheckboxKorisnici();	
+}
 //funkcije za dropdown - ocjene i žanr
 
 // function mojaFunkcijaOcjene()

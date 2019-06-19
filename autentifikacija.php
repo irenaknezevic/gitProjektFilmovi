@@ -36,6 +36,8 @@ if(!empty($oData['korisnicko_ime']))
 }
 else
 {
+	session_start();
+	$_SESSION['authFail'] = 'true';
 	header("Location: pocetna.php");
 }
 

@@ -54,28 +54,36 @@
                     <form class="form-horizontal" action="../action.php" method="POST" >
 
                         <input type="hidden" name="action_id" value="preporuci_film">
+
+                        <input type="hidden" name="korisnici">
                         
                         <div class="col-lg-4 col-xs-4"></div>
                         <h4 class="col-lg-6 col-xs-6">Odaberi korisnika/e:</h4>
 
                         <table id="tablicaKorisnika" class="table table-hover col-lg-12 col-xs-12">
                             <thead>
-                                <th></th>
+                                <th>Slika korisnika</th>
                                 <th>Ime</th>
                                 <th>Korisničko ime</th>
                                 <th></th>
                             </thead>
-                            <tbody>
-                                <tr ng-repeat="oKorisnik in oKorisnici">
-                                    <td id="poljeSlike"><img id="slikaKorisnika" src="../{{oKorisnik.slika}}"></td>
-                                    <td>{{oKorisnik.ime}}</td>
-                                    <td>{{oKorisnik.korisnicko_ime}}</td>
-                                    <td><input type="checkbox" name="korisnik" required></td>
-                                </tr>
-                            </tbody>
+                            <div id="bodyKorisnici">
+                                <tbody>
+                                    <tr ng-repeat="oKorisnik in oKorisnici">
+                                        <td><img id="slikaKorisnika" src="../{{oKorisnik.slika}}"></td>
+                                        <td>{{oKorisnik.ime}}</td>
+                                        <td>{{oKorisnik.korisnicko_ime}}</td>
+                                        <td><input onclick="CheckboxKorisnici()" type="checkbox" name="korisnik" value="{{oKorisnik.korisnicko_ime}}" required></td>
+                                    </tr>
+                                </tbody>
+                            </div>
+                            
                         </table>
                         
                         <div class="modal-footer">
+                                <button id="oznaciKorisnike" onclick="OznaciSveKorisnike()" class="btn btn-success" type="button">Označi sve</button>
+                                <button id="odznaciKorisnike" onclick="OdznaciSveKorisnike()" class="btn btn-danger" type="button">Odznači sve</button>
+
                                 <button type="submit" class="btn btn-primary">Preporuči</button>
                         </div>
                     </form>
