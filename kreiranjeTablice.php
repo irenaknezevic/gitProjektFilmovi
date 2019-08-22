@@ -1,6 +1,7 @@
 <?php 
 include 'connection.php';
 
+
 $sQuery = 'CREATE TABLE IF NOT EXISTS `bazafilmovi`.`korisnici` (
   `korisnik_id` INT NOT NULL AUTO_INCREMENT,
   `ime` VARCHAR(45) NOT NULL,

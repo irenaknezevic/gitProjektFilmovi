@@ -21,6 +21,10 @@ body
 	font-weight: bold;
 	color: white;
 }
+#korIme
+{
+	color: white;
+}
 #odjava
 {
 	margin-right: 10px;
@@ -97,4 +101,11 @@ th, td{
 th
 {
 	text-align: left;
+}
+#preporuke
+{
+	display: inline-block;
+	margin-left: 10px;
+	font-weight: bold;
+	color: white;
 }
