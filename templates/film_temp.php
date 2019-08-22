@@ -39,6 +39,7 @@ if(empty($_POST['imdbId']))
                 <input type="hidden" name="redatelj" value="{{oFilm.Director}}">
                 <input type="hidden" name="sadrzaj" value="{{oFilm.Plot}}">
                 <input type="hidden" name="moja_ocjena">
+                <input type="hidden" name="imdbIdFilma" value="<?php echo $_POST['imdbId'] ?>">
                 <button class="btn btn-primary btn-s" type="submit" onclick="spremiSve(event)" id="btn_dodaj"><i class="fas fa-plus"></i> Spremi film</button>
             </form>
             

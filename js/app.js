@@ -1,6 +1,6 @@
 var oFilmoviModul = angular.module('filmovi-app', []);
 
-//ZA PRIKAZ DETALJA O FILMU KADA GA API PRONADE (nalazi se u fil_temp.php)
+//ZA PRIKAZ DETALJA O FILMU KADA GA API PRONADE (nalazi se u film_temp.php)
 oFilmoviModul.controller('filmoviController', function($scope, $http) {
 	$scope.oFilmovi = [];
 	
@@ -50,7 +50,8 @@ oFilmoviModul.controller('filmoviController', function($scope, $http) {
 					$.ajax({
 					  type: "POST",
 					  url: "../action.php?action_id=spremiFilm",
-					  data: {podaciFilma: jsondata},
+					  data: {podaciFilma: jsondata,
+					  		imdbIdFilma: imdbID},
 					  success: function(response){
 					  	console.log(response);
 					  }
@@ -66,7 +67,27 @@ oFilmoviModul.controller('filmoviController', function($scope, $http) {
 		});
 	}
 
-	$scope.spremiFilm = function(imdbID)
+	
+});
+
+oFilmoviModul.controller('filmController', function($scope, $http) {
+	$scope.oFilm = [];
+	
+	$scope.init = function(imdbID)
+	{
+		// $scope.naziv = naziv;
+		$http({
+			method: "GET",
+			url: "http://www.omdbapi.com/?i="+imdbID+"&apikey=e55c1343",
+			}).then(function(response) {
+				console.log(response.data);
+				$scope.oFilm = response.data;
+			},function(response) {
+				console.log('Došlo je do pogreške!');
+		});
+	}
+
+	/*$scope.spremiFilm = function(imdbID)
 	{
 		$http({
 			method: "GET",
@@ -90,7 +111,8 @@ oFilmoviModul.controller('filmoviController', function($scope, $http) {
 					$.ajax({
 					  type: "POST",
 					  url: "../action.php?action_id=spremiFilm",
-					  data: {podaciFilma: jsondata},
+					  data: {podaciFilma: jsondata,
+					  		imdbIdFilma: imdbID},
 					  success: function(response){
 					  	console.log(response);
 					  }
@@ -104,25 +126,7 @@ oFilmoviModul.controller('filmoviController', function($scope, $http) {
 			},function(response) {
 				console.log('Došlo je do pogreške!');
 		});
-	}
-});
-
-oFilmoviModul.controller('filmController', function($scope, $http) {
-	$scope.oFilm = [];
-	
-	$scope.init = function(imdbID)
-	{
-		// $scope.naziv = naziv;
-		$http({
-			method: "GET",
-			url: "http://www.omdbapi.com/?i="+imdbID+"&apikey=e55c1343",
-			}).then(function(response) {
-				console.log(response.data);
-				$scope.oFilm = response.data;
-			},function(response) {
-				console.log('Došlo je do pogreške!');
-		});
-	}
+	}*/
 });
 
 //PRIKAZ FILMOVA KORISNIKA KOJI JE PRIJAVLJEN (nalazi se u filmovi.php)
@@ -188,14 +192,14 @@ oFilmoviModul.directive("naslovnicaFilm", function() {
 
 //ZA PRIKAZ DETALJA O FILMU KOJI JE ODABRAN (prikaz_filma_temp.html)
 oFilmoviModul.controller('odabraniFilmController', function($scope, $http) {
-	$scope.oFilmovi = [];
+	$scope.oFilm = [];
 
 	$http({
 		method: "GET",
 		url: "../action.php?action_id=odabrani_film&film_id="+localStorage.getItem("film_id")
 	}).then(function(response) {
 		console.log(response.data);
-		$scope.oFilmovi = response.data;
+		$scope.oFilm = response.data;
 	},function(response) {
 		console.log('Došlo je do pogreške!');
 	});
@@ -304,7 +308,7 @@ function OznaciSveKorisnike()
 
 	users.forEach(function(user)
 	{
-		user.setAttribute('checked', true);
+		user.checked = true;
 	});
 
 	btnOznaci.style.display = "none";
@@ -319,7 +323,7 @@ function OdznaciSveKorisnike()
 
 	users.forEach(function(user)
 	{
-		user.removeAttribute('checked');
+		user.checked = false;
 	});
 
 	btnOznaci.style.display = "inline-block";

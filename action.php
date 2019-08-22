@@ -2,8 +2,8 @@
 
 include 'connection.php';
 
-/*header('Content-type: text/json');*/
-header('Content-type: application/json; charset=utf-8');
+/*header('Content-type: text/json');
+header('Content-type: application/json; charset=utf-8');*/
 
 
 $action_id="";
@@ -39,21 +39,19 @@ switch($action_id)
 		// var_dump($oRow);
 		if(empty($oRow))
 		{
-			$sIme = $_POST['ime'].' '.$_POST['prezime'];
-			var_dump($sIme);
-			$sQueryAddUser = "INSERT INTO korisnici (ime, korisnicko_ime, lozinka) VALUES ('".$sIme."', '".$_POST['korime']."', '".$_POST['lozinka']."')";
+			$sQueryAddUser = "INSERT INTO korisnici (ime, prezime, korisnicko_ime, lozinka, nadimak) VALUES ('".$_POST['ime']."', '".$_POST['prezime']."', '".$_POST['korime']."', '".$_POST['lozinka']."', '".$_POST['nadimak']."')";
 
 			$oConnection->query($sQueryAddUser);
 
-			$sQueryGetUser = "SELECT * FROM korisnici WHERE korisnicko_ime='".$_POST['korime']."'";
 			$resultUser = $oConnection->query($sQuery);
-			// var_dump($result);
+
 			$user = $resultUser->fetch(PDO::FETCH_ASSOC);
 
-			session_start();
-			$_SESSION['user_id'] = $user['korisnik_id'];
+			var_dump($resultUser);
+			/*session_start();
+			$_SESSION['user_id'] = $user['korisnik_id'];*/
 
-			header("Location: autentifikacija.php");
+			//header("Location: autentifikacija.php");
 		}
 		else
 		{
@@ -104,7 +102,7 @@ switch($action_id)
 		// var_dump($oRow);
 		if(empty($oRow))
 		{
-			$sQueryAdd = "INSERT INTO filmovi (korisnik_id, naziv_filma, godina, zanr, trajanje, glumci, redatelj, slika, sadrzaj, moja_ocjena) VALUES (:id, :naziv, :godina, :zanr, :trajanje, :glumci, :redatelj, :slika, :sadrzaj, :moja_ocjena) ";
+			$sQueryAdd = "INSERT INTO filmovi (korisnik_id, naziv_filma, godina, zanr, trajanje, glumci, redatelj, slika, sadrzaj, moja_ocjena, imdb_id) VALUES (:id, :naziv, :godina, :zanr, :trajanje, :glumci, :redatelj, :slika, :sadrzaj, :moja_ocjena, :imdb_id)";
 
 			$oStatement = $oConnection->prepare($sQueryAdd);
 			if(!empty($_SESSION['id']))
@@ -119,12 +117,14 @@ switch($action_id)
 					'redatelj' => $_POST['redatelj'],
 					'slika' => $_POST['slika'],
 					'sadrzaj' => $_POST['sadrzaj'],
-					'moja_ocjena' => $_POST['moja_ocjena']
+					'moja_ocjena' => $_POST['moja_ocjena'],
+					'imdb_id' => $_POST['imdbIdFilma']
 				);
 				$oStatement->execute($oData);
 				/*var_dump($oData);
 				echo $sQueryAdd;*/		
 				header("Location: filmovi.php");
+
 			}
 		}
 		else
@@ -140,7 +140,7 @@ switch($action_id)
 		session_start();
 		$korisnik_id = $_SESSION['id'];
 		/*var_dump($json);*/
-		$sQueryAdd = "INSERT INTO filmovi (korisnik_id, naziv_filma, godina, zanr, trajanje, glumci, redatelj, slika, sadrzaj, moja_ocjena) VALUES (:id, :naziv, :godina, :zanr, :trajanje, :glumci, :redatelj, :slika, :sadrzaj, :moja_ocjena) ";
+		$sQueryAdd = "INSERT INTO filmovi (korisnik_id, naziv_filma, godina, zanr, trajanje, glumci, redatelj, slika, sadrzaj, moja_ocjena) VALUES (:id, :naziv, :godina, :zanr, :trajanje, :glumci, :redatelj, :slika, :sadrzaj, :moja_ocjena, :imdb_id) ";
 
 			$oStatement = $oConnection->prepare($sQueryAdd);
 			if(!empty($_SESSION['id']))
@@ -156,6 +156,7 @@ switch($action_id)
 					'slika' => $film->slika,
 					'sadrzaj' => $film->sadrzaj,
 					'moja_ocjena' => $film->moja_ocjena,
+					'imdb_id' => $_POST['imdbIdFilma']
 				);
 				$oStatement->execute($oData);
 				// var_dump($oData);
@@ -210,6 +211,29 @@ switch($action_id)
 		$oStatement = $oConnection->query($sQueryDelete);
 		header("Location: filmovi.php");
 		// echo $sQueryDelete;
+	break;
+
+	case 'preporuci_film':
+		session_start();
+		$korisnik_id = $_SESSION['id'];
+
+		$dbKorisnici = [];
+		
+		$sQueryGetUser = "SELECT * FROM korisnici WHERE korisnicko_ime IN (".$_POST['korisnici'].")";
+
+		$oRecord = $oConnection->query($sQueryGetUser);			
+
+		while($oRow = $oRecord->fetch(PDO::FETCH_ASSOC))
+		{
+			$sQueryWrite = "INSERT INTO preporuceni_filmovi (posiljatelj_id, primatelj_id, imdb_id) VALUES (".$korisnik_id.", ".$oRow['korisnik_id'].", '".$_POST['film_id']."')";
+			
+			$oConnection->query($sQueryWrite);
+			echo $sQueryWrite;
+		}
+		
+		
+		/*var_dump($dbKorisnici);*/
+		/*header("Location: filmovi.php");*/
 	break;
 }
 

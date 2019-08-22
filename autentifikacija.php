@@ -29,10 +29,10 @@ if(!empty($oData['korisnicko_ime']))
 	session_start();
 	$_SESSION['id'] = $oKorisnik->korisnik_id;
 	$_SESSION['ime'] = $oKorisnik->ime;
-	header("Location: filmovi.php");
-	// var_dump($oKorisnik);
-	// echo $_SESSION['id'];
-	// echo $_SESSION['ime'];
+	//header("Location: filmovi.php");
+	var_dump($oKorisnik);
+	echo $_SESSION['id'];
+	echo $_SESSION['ime'];
 }
 else
 {

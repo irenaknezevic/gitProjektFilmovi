@@ -92,6 +92,10 @@ switch ($sModalID)
 						<label class="control-label col-lg-3 col-xs-3">Lozinka:</label>
 						<div class="col-lg-8 col-xs-8"><input class="form-control" type="password" name="lozinka" required></div>
 				</div>
+				<div class="form-group">
+						<label class="control-label col-lg-3 col-xs-3">Nadimak:</label>
+						<div class="col-lg-8 col-xs-8"><input class="form-control" type="text" name="nadimak" required></div>
+				</div>
 				<div class="modal-footer">
 						<button type="submit" class="btn btn-danger btn-s">Registriraj se</button>
 				</div>

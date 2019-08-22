@@ -18,79 +18,83 @@
     </div>
 
     <div class="container" ng-controller="odabraniFilmController">
-        <div ng-repeat="oFilm in oFilmovi">
+        <div ng-repeat="film in oFilm">
            <div id="slika">
-                <img src="{{oFilm.slika}}">
+                <img src="{{film.slika}}">
             </div>
             <div id="info">
-                <h1>{{oFilm.naziv_filma}}</h1>
-                <label>{{oFilm.godina}}. | {{oFilm.zanr}} | {{oFilm.trajanje}}</label>
+                <h1>{{film.naziv_filma}}</h1>
+                <label>{{film.godina}}. | {{film.zanr}} | {{film.trajanje}}</label>
                 <br>
                 <br>
                 <br>
-                <p><span>Glumci:</span> {{oFilm.glumci}}</p>
+                <p><span>Glumci:</span> {{film.glumci}}</p>
                 <br>
-                <p><span>Redatelj:</span> {{oFilm.redatelj}}</p>
+                <p><span>Redatelj:</span> {{film.redatelj}}</p>
                 <br>
-                <p><span>Ukratko:</span> {{oFilm.sadrzaj}}</p>
+                <p><span>Ukratko:</span> {{film.sadrzaj}}</p>
                 <br>
-                <p><span>Moja ocjena:</span> {{oFilm.moja_ocjena}}</p>
+                <p><span>Moja ocjena:</span> {{film.moja_ocjena}}</p>
                 <br>
             </div> 
+
+            <!-- PREPORUCI FILM -->
+            <div class="modal" id="modals" tabindex="-1" role="dialog" aria-labelledby="" aria-hiddeen="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header" style="background-color:#3F3F3F">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" style="color:white">&times;</button>
+                            <h4 class="modal-title" style="color:white">Preporuči film</h4>
+                        </div>
+                        <br>
+                        <div class="modal-body" ng-controller="korisniciController">
+                            <form class="form-horizontal" action="../action.php" method="POST" >
+
+                                <input type="hidden" name="action_id" value="preporuci_film">
+
+                                <input type="hidden" name="film_id" value="{{film.imdb_id}}">
+
+                                <input type="hidden" name="korisnici">
+                                
+                                <div class="col-lg-4 col-xs-4"></div>
+                                <h4 class="col-lg-6 col-xs-6">Odaberi korisnika/e:</h4>
+
+                                <table id="tablicaKorisnika" class="table table-hover col-lg-12 col-xs-12">
+                                    <thead>
+                                        <th>Slika korisnika</th>
+                                        <th>Ime</th>
+                                        <th>Korisničko ime</th>
+                                        <th></th>
+                                    </thead>
+                                    <div id="bodyKorisnici">
+                                        <tbody>
+                                            <tr ng-repeat="oKorisnik in oKorisnici">
+                                                <td><img id="slikaKorisnika" src="../{{oKorisnik.slika}}"></td>
+                                                <td>{{oKorisnik.ime}}</td>
+                                                <td>{{oKorisnik.korisnicko_ime}}</td>
+                                                <td><input onclick="CheckboxKorisnici()" type="checkbox" name="korisnik" value="{{oKorisnik.korisnicko_ime}}" required autocomplete="off"></td>
+                                            </tr>
+                                        </tbody>
+                                    </div>
+                                    
+                                </table>
+                                
+                                <div class="modal-footer">
+                                        <button id="oznaciKorisnike" onclick="OznaciSveKorisnike()" class="btn btn-success" type="button">Označi sve</button>
+                                        <button id="odznaciKorisnike" onclick="OdznaciSveKorisnike()" class="btn btn-danger" type="button">Odznači sve</button>
+
+                                        <button type="submit" class="btn btn-primary">Preporuči</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 
     <br>
-
-    <div class="modal" id="modals" tabindex="-1" role="dialog" aria-labelledby="" aria-hiddeen="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header" style="background-color:#3F3F3F">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" style="color:white">&times;</button>
-                    <h4 class="modal-title" style="color:white">Preporuči film</h4>
-                </div>
-                <br>
-                <div class="modal-body" ng-controller="korisniciController">
-                    <form class="form-horizontal" action="../action.php" method="POST" >
-
-                        <input type="hidden" name="action_id" value="preporuci_film">
-
-                        <input type="hidden" name="korisnici">
-                        
-                        <div class="col-lg-4 col-xs-4"></div>
-                        <h4 class="col-lg-6 col-xs-6">Odaberi korisnika/e:</h4>
-
-                        <table id="tablicaKorisnika" class="table table-hover col-lg-12 col-xs-12">
-                            <thead>
-                                <th>Slika korisnika</th>
-                                <th>Ime</th>
-                                <th>Korisničko ime</th>
-                                <th></th>
-                            </thead>
-                            <div id="bodyKorisnici">
-                                <tbody>
-                                    <tr ng-repeat="oKorisnik in oKorisnici">
-                                        <td><img id="slikaKorisnika" src="../{{oKorisnik.slika}}"></td>
-                                        <td>{{oKorisnik.ime}}</td>
-                                        <td>{{oKorisnik.korisnicko_ime}}</td>
-                                        <td><input onclick="CheckboxKorisnici()" type="checkbox" name="korisnik" value="{{oKorisnik.korisnicko_ime}}" required></td>
-                                    </tr>
-                                </tbody>
-                            </div>
-                            
-                        </table>
-                        
-                        <div class="modal-footer">
-                                <button id="oznaciKorisnike" onclick="OznaciSveKorisnike()" class="btn btn-success" type="button">Označi sve</button>
-                                <button id="odznaciKorisnike" onclick="OdznaciSveKorisnike()" class="btn btn-danger" type="button">Odznači sve</button>
-
-                                <button type="submit" class="btn btn-primary">Preporuči</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <script type="text/javascript" src="../js/app.js"></script>
     <script type="text/javascript" src="../js/globals.js"></script>
