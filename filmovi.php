@@ -27,11 +27,16 @@ if(!empty($_SESSION['ime']))
 </head>
 <body ng-app="filmovi-app">
 	<div class="navbar navbar-fixed-top">
+		<div class="container-fluid navbar-left">
+			<h4><a href="preporuceni.php" id="preporuke">Preporučeni filmovi</a></h4>
+		</div>
 		<div class="container-fluid navbar-right">
 			<h4 id="korisnik">
-				<?php 
-					echo $_SESSION['ime'];
-				?>
+				<a id="korIme" href="profil.php">
+		            <?php 
+		                echo $_SESSION['ime'];
+		            ?>
+	            </a>
 			</h4>
 			<button class="btn btn-danger btn-s" id="odjava" onclick="funkcijaOdjava()">Odjava</button>
 		</div>

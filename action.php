@@ -39,9 +39,7 @@ switch($action_id)
 		// var_dump($oRow);
 		if(empty($oRow))
 		{
-			$sIme = $_POST['ime'].' '.$_POST['prezime'];
-			var_dump($sIme);
-			$sQueryAddUser = "INSERT INTO korisnici (ime, korisnicko_ime, lozinka) VALUES ('".$sIme."', '".$_POST['korime']."', '".$_POST['lozinka']."')";
+			$sQueryAddUser = "INSERT INTO korisnici (ime, prezime, korisnicko_ime, lozinka, nadimak) VALUES ('".$_POST['ime']."', '".$_POST['prezime']."', '".$_POST['korime']."', '".$_POST['lozinka']."', '".$_POST['nadimak']."')";
 
 			$oConnection->query($sQueryAddUser);
 
