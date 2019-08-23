@@ -71,7 +71,7 @@ switch ($sModalID)
 					<h4 class="modal-title" style="color:white">Registracija</h4>
 			</div>
 			<br>
-			<form class="form-horizontal" action="action.php" method="POST">
+			<form class="form-horizontal" action="action.php" method="POST" enctype="multipart/form-data">
 
 				<input type="hidden" name="action_id" value="novi_korisnik">
 				
@@ -95,6 +95,10 @@ switch ($sModalID)
 				<div class="form-group">
 						<label class="control-label col-lg-3 col-xs-3">Nadimak:</label>
 						<div class="col-lg-8 col-xs-8"><input class="form-control" type="text" name="nadimak" required></div>
+				</div>
+				<div class="form-group">
+						<label class="control-label col-lg-3 col-xs-3">Slika profila:</label>
+						<div class="col-lg-8 col-xs-8"><input type="file" accept="image/*" name="slika"></div>
 				</div>
 				<div class="modal-footer">
 						<button type="submit" class="btn btn-danger btn-s">Registriraj se</button>

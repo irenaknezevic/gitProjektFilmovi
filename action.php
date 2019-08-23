@@ -39,15 +39,41 @@ switch($action_id)
 		// var_dump($oRow);
 		if(empty($oRow))
 		{
-			$sQueryAddUser = "INSERT INTO korisnici (ime, prezime, korisnicko_ime, lozinka, nadimak, slika) VALUES ('".$_POST['ime']."', '".$_POST['prezime']."', '".$_POST['korime']."', '".$_POST['lozinka']."', '".$_POST['nadimak']."' , 'slika')";
+			$slika = "img/korisnik.png";
+
+			if($_FILES['slika']['error'] == 0)
+			{
+				//Prebrojavanje korisnika
+				$sQueryBrojKorisnika = "SELECT COUNT(*) FROM korisnici";
+
+				$resultBrojKorisnika = $oConnection->query($sQueryBrojKorisnika);
+
+				$brKorisnika = $resultBrojKorisnika->fetch(PDO::FETCH_ASSOC)['COUNT(*)']+1;
+				//---------------------------
+
+				$direktorij = "slikeKorisnika";
+
+				$imeSlike = $_FILES['slika']['name'];
+
+				list($ime, $ekstenzija) = explode(".", $imeSlike);
+
+				$tmp_datoteka = $_FILES['slika']['tmp_name'];
+
+				$slika = "$direktorij/$brKorisnika".".".$ekstenzija;
+
+				move_uploaded_file($tmp_datoteka, $slika);
+
+			}
+
+			$sQueryAddUser = "INSERT INTO korisnici (ime, prezime, korisnicko_ime, lozinka, nadimak, slika) VALUES ('".$_POST['ime']."', '".$_POST['prezime']."', '".$_POST['korime']."', '".$_POST['lozinka']."', '".$_POST['nadimak']."', '".$slika."')";
 
 			$oConnection->query($sQueryAddUser);
 
 			$resultUser = $oConnection->query($sQuery);
 
 			$user = $resultUser->fetch(PDO::FETCH_ASSOC);
-
 			// var_dump($user);
+
 			session_start();
 			$_SESSION['user_id'] = $user['korisnik_id'];
 
@@ -228,7 +254,10 @@ switch($action_id)
 			$sQueryWrite = "INSERT INTO preporuceni_filmovi (posiljatelj_id, primatelj_id, imdb_id) VALUES (".$korisnik_id.", ".$oRow['korisnik_id'].", '".$_POST['film_id']."')";
 			
 			$oConnection->query($sQueryWrite);
-			echo $sQueryWrite;
+			
+			header("Location: filmovi.php");
+			session_start();
+			$_SESSION['preporuka'] = "Preporučili se film korisniku";
 		}
 		
 		

@@ -299,9 +299,6 @@ function CheckboxKorisnici()
 
 //Preporuka filmova
 
-var btnOznaci = document.querySelector('#oznaciKorisnike');
-var btnOdznaci = document.querySelector('#odznaciKorisnike');
-
 function OznaciSveKorisnike()
 {
 	var users = document.querySelectorAll('input[name="korisnik"]');
@@ -311,8 +308,8 @@ function OznaciSveKorisnike()
 		user.checked = true;
 	});
 
-	btnOznaci.style.display = "none";
-	btnOdznaci.style.display = "inline-block";
+	document.querySelector('#oznaciKorisnike').style.display = "none";
+	document.querySelector('#odznaciKorisnike').style.display = "inline-block";
 
 	CheckboxKorisnici();
 }
@@ -326,8 +323,8 @@ function OdznaciSveKorisnike()
 		user.checked = false;
 	});
 
-	btnOznaci.style.display = "inline-block";
-	btnOdznaci.style.display = "none";
+	document.querySelector('#oznaciKorisnike').style.display = "inline-block";
+	document.querySelector('#odznaciKorisnike').style.display = "none";
 
 	CheckboxKorisnici();	
 }

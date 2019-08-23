@@ -32,7 +32,6 @@ body
 .container-fluid
 {
 	margin-top: 4px;
-	float: right;
 }
 .container
 {
@@ -103,9 +102,15 @@ th
 }
 #preporuke
 {
-	display: inline-block;
 	margin-left: 10px;
 	font-weight: bold;
 	color: white;
 	float: left;
+	font-size: 24px;
+}
+#slikaProfila
+{
+	border-radius: 50%;
+	width: 40px;
+	height: 40px;
 }
