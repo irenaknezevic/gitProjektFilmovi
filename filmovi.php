@@ -28,10 +28,14 @@ if(!empty($_SESSION['ime']))
 <body ng-app="filmovi-app">
 	<div class="navbar navbar-fixed-top">
 		<div class="container-fluid navbar-left">
-			<h4><a href="preporuceni.php" id="preporuke">Preporučeni filmovi</a></h4>
+			<a href="preporuceni.php" id="preporuke">Preporučeni filmovi</a>
 		</div>
 		<div class="container-fluid navbar-right">
 			<h4 id="korisnik">
+				<img id="slikaProfila" src=<?php
+					echo $_SESSION['slika'];
+				 ?>
+				>
 				<a id="korIme" href="profil.php">
 		            <?php 
 		                echo $_SESSION['ime'];
@@ -43,6 +47,7 @@ if(!empty($_SESSION['ime']))
 	</div>
 	<div class="container">
 		<h1>Moji filmovi</h1>
+
 		<br>
 		<input class="form-control col-lg-3 col-xs-3" ng-model="inputTekst" id="trazilica" type="text" placeholder="pretraži...">
 
