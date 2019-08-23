@@ -63,7 +63,7 @@ if(!empty($_SESSION['ime']))
         <br>
         <br>
 
-        <button class="btn btn-primary btn-s">Spremi promjene</button>   
+        <button class="btn btn-primary btn-s" id="btn-azuriranje">Spremi promjene</button>   
     </div>
 
     <script type="text/javascript" src="js/globals.js"></script>

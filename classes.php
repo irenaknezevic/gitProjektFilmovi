@@ -19,14 +19,16 @@ class Korisnik
 {
 	public $korisnik_id = "N/A";
 	public $ime = "N/A";
+	public $prezime = "N/A";
 	public $korisnicko_ime = "N/A";
 	public $lozinka = "N/A";
 	public $nadimak = "N/A";
 
-	public function __construct($korisnik_id=NULL, $ime=NULL, $korisnicko_ime=NULL, $lozinka=NULL, $nadimak=NULL)
+	public function __construct($korisnik_id=NULL, $ime=NULL, $prezime=NULL, $korisnicko_ime=NULL, $lozinka=NULL, $nadimak=NULL)
 	{
 		if($korisnik_id) $this->korisnik_id = $korisnik_id;
 		if($ime) $this->ime = $ime;
+		if($prezime) $this->prezime = $prezime;
 		if($korisnicko_ime) $this->korisnicko_ime = $korisnicko_ime;
 		if($lozinka) $this->lozinka = $lozinka;
 		if($nadimak) $this->nadimak = $nadimak;

@@ -37,7 +37,6 @@ body
 .container
 {
 	margin-top: 10vh;
-
 }
 h1
 {
@@ -108,4 +107,5 @@ th
 	margin-left: 10px;
 	font-weight: bold;
 	color: white;
+	float: left;
 }

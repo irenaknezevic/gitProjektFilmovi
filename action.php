@@ -39,7 +39,7 @@ switch($action_id)
 		// var_dump($oRow);
 		if(empty($oRow))
 		{
-			$sQueryAddUser = "INSERT INTO korisnici (ime, prezime, korisnicko_ime, lozinka, nadimak) VALUES ('".$_POST['ime']."', '".$_POST['prezime']."', '".$_POST['korime']."', '".$_POST['lozinka']."', '".$_POST['nadimak']."')";
+			$sQueryAddUser = "INSERT INTO korisnici (ime, prezime, korisnicko_ime, lozinka, nadimak, slika) VALUES ('".$_POST['ime']."', '".$_POST['prezime']."', '".$_POST['korime']."', '".$_POST['lozinka']."', '".$_POST['nadimak']."' , 'slika')";
 
 			$oConnection->query($sQueryAddUser);
 
@@ -47,11 +47,11 @@ switch($action_id)
 
 			$user = $resultUser->fetch(PDO::FETCH_ASSOC);
 
-			var_dump($resultUser);
-			/*session_start();
-			$_SESSION['user_id'] = $user['korisnik_id'];*/
+			// var_dump($user);
+			session_start();
+			$_SESSION['user_id'] = $user['korisnik_id'];
 
-			//header("Location: autentifikacija.php");
+			header("Location: autentifikacija.php");
 		}
 		else
 		{
