@@ -98,7 +98,7 @@ switch ($sModalID)
 				</div>
 				<div class="form-group">
 						<label class="control-label col-lg-3 col-xs-3">Slika profila:</label>
-						<div class="col-lg-8 col-xs-8"><input type="file" accept="image/*" name="slika" required></div>
+						<div class="col-lg-8 col-xs-8"><input type="file" accept="image/*" name="slika"></div>
 				</div>
 				<div class="modal-footer">
 						<button type="submit" class="btn btn-danger btn-s">Registriraj se</button>
