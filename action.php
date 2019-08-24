@@ -264,6 +264,112 @@ switch($action_id)
 		/*var_dump($dbKorisnici);*/
 		/*header("Location: filmovi.php");*/
 	break;
+
+	case 'azuriranje_profila':
+
+		session_start();
+		$korisnik_id = $_SESSION['id'];
+
+		$setQueryUpdate = AzuriranjeProfila($oConnection, $korisnik_id);
+
+		$sQueryUpdateProfila = "UPDATE korisnici SET ".$setQueryUpdate." WHERE korisnik_id=".$_SESSION['id'];
+		//echo $sQueryUpdateProfila;
+		$oStatement = $oConnection->query($sQueryUpdateProfila);
+
+		header('Location: profil.php');
+
+	break;
+}
+
+function AzuriranjeProfila($con, $id)
+{
+	$string = "";
+
+	if(!empty($_POST['inputAzuriranjeImena']) && $_POST['inputAzuriranjeImena'] != '')
+	{
+		$string .= "ime='".$_POST['inputAzuriranjeImena']."'";
+	}
+
+	if(!empty($_POST['inputAzuriranjePrezimena']) && $_POST['inputAzuriranjePrezimena'] != '')
+	{
+		if($string != "")
+		{
+			$string .= ", prezime='".$_POST['inputAzuriranjePrezimena']."'";
+		}
+		else
+		{
+			$string .= "prezime='".$_POST['inputAzuriranjePrezimena']."'";
+		}
+	}
+
+	if(!empty($_POST['inputAzuriranjeKor']) && $_POST['inputAzuriranjeKor'] != '')
+	{
+		if($string != "")
+		{
+			$string .= ", korisnicko_ime='".$_POST['inputAzuriranjeKor']."'";
+		}
+		else
+		{
+			$string .= "korisnicko_ime='".$_POST['inputAzuriranjeKor']."'";
+		}
+	}
+
+	if(!empty($_POST['inputAzuriranjeLozinke']) && $_POST['inputAzuriranjeLozinke'] != '')
+	{
+		if($string != "")
+		{
+			$string .= ", lozinka='".$_POST['inputAzuriranjeLozinke']."'";
+		}
+		else
+		{
+			$string .= "lozinka='".$_POST['inputAzuriranjeLozinke']."'";
+		}
+	}
+
+	if(!empty($_POST['inputAzuriranjeNadimka']) && $_POST['inputAzuriranjeNadimka'] != '')
+	{
+		if($string != "")
+		{
+			$string .= ", nadimak='".$_POST['inputAzuriranjeNadimka']."'";
+		}
+		else
+		{
+			$string .= "nadimak='".$_POST['inputAzuriranjeNadimka']."'";
+		}
+	}
+
+	if($_FILES['inputAzuriranjeSlike']['error'] == 0)
+	{
+
+		if($_SESSION['slikaKorisnika'] != 'img/korisnik.png')
+		{
+			unlink($_SESSION['slikaKorisnika']);
+		}
+		
+		$direktorij = "slikeKorisnika";
+
+		$imeSlike = $_FILES['inputAzuriranjeSlike']['name'];
+
+		list($ime, $ekstenzija) = explode(".", $imeSlike);
+
+		$tmp_datoteka = $_FILES['inputAzuriranjeSlike']['tmp_name'];
+
+		$slika = "$direktorij/$id".".".$ekstenzija;
+
+		move_uploaded_file($tmp_datoteka, $slika);
+
+		if($string != "")
+		{
+			$string .= ", slika='".$slika."'";
+		}
+		else
+		{
+			$string .= "slika='".$slika."'";
+		}
+
+	}
+
+	return $string;
 }
 
 //echo json_encode($oJson);

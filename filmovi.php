@@ -1,6 +1,7 @@
 <?php 
+include 'connection.php';
 session_start();
-if(!empty($_SESSION['ime']))
+if(!empty($_SESSION['id']))
 {
 	if(!empty($_SESSION['movieWarning']))
 	{
@@ -11,6 +12,14 @@ if(!empty($_SESSION['ime']))
 	<?php
 	unset($_SESSION['movieWarning']);
 	}
+
+	//DOHVATI KORISNIKA
+    $sQuery = "SELECT * FROM korisnici WHERE korisnik_id='".$_SESSION['id']."'";
+
+    $result = $oConnection->query($sQuery);
+
+    $oKorisnik = $result->fetch(PDO::FETCH_ASSOC);
+    //var_dump($oKorisnik);
 ?>
 <!DOCTYPE html>
 <html>
@@ -33,12 +42,12 @@ if(!empty($_SESSION['ime']))
 		<div class="container-fluid navbar-right">
 			<h4 id="korisnik">
 				<img id="slikaProfila" src=<?php
-					echo $_SESSION['slika'];
+					echo $oKorisnik['slika'];
 				 ?>
 				>
 				<a id="korIme" href="profil.php">
 		            <?php 
-		                echo $_SESSION['ime'];
+		                echo $oKorisnik['ime']." ".$oKorisnik['prezime']." (".$oKorisnik['nadimak'].")";
 		            ?>
 	            </a>
 			</h4>

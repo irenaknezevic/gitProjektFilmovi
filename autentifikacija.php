@@ -9,8 +9,8 @@ if(!empty($_POST['korime']) && !empty($_POST['lozinka']))
 {
 	$sQuery = 'SELECT * FROM korisnici WHERE korisnicko_ime="'.$_POST['korime'].'" AND lozinka="'.$_POST['lozinka'].'"';
 }
-elseif (!empty($_SESSION['user_id'])) {
-	$sQuery = "SELECT * FROM korisnici WHERE korisnik_id=".$_SESSION['user_id'];
+elseif (!empty($_SESSION['id'])) {
+	$sQuery = "SELECT * FROM korisnici WHERE korisnik_id=".$_SESSION['korisnik_id'];
 	session_destroy();
 }
 else
@@ -21,20 +21,18 @@ else
 
 $oStatement = $oConnection->query($sQuery);
 $oData = $oStatement->fetch(PDO::FETCH_ASSOC);
-// var_dump($oData);
+//var_dump($oData);
 
 if(!empty($oData['korisnicko_ime']))
 {
-	$oKorisnik = new Korisnik ($oData['korisnik_id'], $oData['ime'], $oData['korisnicko_ime'], $oData['lozinka']);
-	session_start();
+	$oKorisnik = new Korisnik ($oData['korisnik_id'], $oData['ime'], $oData['prezime'], $oData['korisnicko_ime'], $oData['lozinka'], $oData['nadimak'], $oData['slika']);
+
 	$_SESSION['id'] = $oKorisnik->korisnik_id;
-	$_SESSION['ime'] = $oKorisnik->ime;
-	$_SESSION['slika'] = $oData['slika'];
+	/*$_SESSION['ime'] = $oKorisnik->ime;
+	$_SESSION['slika'] = $oKorisnik->slika;*/
 	
 	header("Location: filmovi.php");
-	/*var_dump($oKorisnik);
-	echo $_SESSION['id'];
-	echo $_SESSION['ime'];*/
+	//var_dump($oKorisnik);
 }
 else
 {

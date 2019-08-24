@@ -1,6 +1,8 @@
 <?php 
+include 'connection.php';
+
 session_start();
-if(!empty($_SESSION['ime']))
+if(!empty($_SESSION['id']))
 {
     if(!empty($_SESSION['movieWarning']))
     {
@@ -11,6 +13,14 @@ if(!empty($_SESSION['ime']))
     <?php
     unset($_SESSION['movieWarning']);
     }
+
+    //DOHVATI KORISNIKA
+    $sQuery = "SELECT * FROM korisnici WHERE korisnik_id='".$_SESSION['id']."'";
+
+    $result = $oConnection->query($sQuery);
+    
+    $oKorisnik = $result->fetch(PDO::FETCH_ASSOC);
+    //var_dump($oKorisnik);
 ?>
 <!DOCTYPE html>
 <html>
@@ -33,37 +43,40 @@ if(!empty($_SESSION['ime']))
         </div>
     </div>
     <div class="container">
-        <div id="slikaProfila">
-            <img src="img/film.jpg">
-        </div>
-        <button class="btn btn-basic btn-s">Učitaj fotografiju</button>
-        <div id="detalji">
-            <label for="inputAzuriranjeImena">Ime</label>
-            <input type="text" class="form-control" id="inputAzuriranjeImena">
-            <br>
+        <form action="action.php" method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="action_id" value="azuriranje_profila">
+            <div id="slikaProfila" class="form-group">
+                <img src=<?php 
+                        echo $oKorisnik['slika'];
+                        $_SESSION['slikaKorisnika'] = $oKorisnik['slika'];
+                    ?>
+                >
+                <input class="btn" type="file" name="inputAzuriranjeSlike" accept="image/*">
+            </div>
+            <div id="detalji" class="form-group">
+                    <label for="inputAzuriranjeImena">Ime</label>
+                    <input type="text" class="form-control" name="inputAzuriranjeImena" value=<?php echo $oKorisnik['ime'] ?>>
+                    <br>
 
-            <label for="inputAzuriranjePrezimena">Prezime</label>
-            <input type="text" class="form-control" id="inputAzuriranjePrezimena">
-            <br>
+                    <label for="inputAzuriranjePrezimena">Prezime</label>
+                    <input type="text" class="form-control" name="inputAzuriranjePrezimena" value=<?php echo $oKorisnik['prezime'] ?>>
+                    <br>
 
-            <label for="inputAzuriranjeKor">Korisnicko ime</label>
-            <input type="text" class="form-control" id="inputAzuriranjeKor">
-            <br>
+                    <label for="inputAzuriranjeKor">Korisnicko ime</label>
+                    <input type="text" class="form-control" name="inputAzuriranjeKor" value=<?php echo $oKorisnik['korisnicko_ime'] ?>>
+                    <br>
 
-            <label for="inputAzuriranjeLozinke">Lozinka</label>
-            <input type="password" class="form-control" id="inputAzuriranjeLozinke">
-            <br>
+                    <label for="inputAzuriranjeLozinke">Lozinka</label>
+                    <input type="password" class="form-control" name="inputAzuriranjeLozinke" value=<?php echo $oKorisnik['lozinka'] ?>>
+                    <span></span>
+                    <br>
 
-            <label for="inputAzuriranjeNadimka">Nadimak</label>
-            <input type="text" class="form-control" id="inputAzuriranjeNadimka">
-            <br>
-        </div>
-
-        <br>
-        <br>
-        <br>
-
-        <button class="btn btn-primary btn-s">Spremi promjene</button>   
+                    <label for="inputAzuriranjeNadimka">Nadimak</label>
+                    <input type="text" class="form-control" name="inputAzuriranjeNadimka" value=<?php echo $oKorisnik['nadimak'] ?>>
+                    <br>
+                    <button type="submit" class="btn btn-primary btn-s" id="btn-azuriranje">Spremi promjene</button>
+            </div>
+        </form> 
     </div>
 
     <script type="text/javascript" src="js/globals.js"></script>
