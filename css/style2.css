@@ -114,3 +114,11 @@ th
 	width: 40px;
 	height: 40px;
 }
+thead
+{
+	border-radius: 5px;
+}
+.table
+{
+	border-radius: 10px;
+}

@@ -64,6 +64,29 @@ switch ($sModalID)
 			</form>';
 	break;
 
+	case 'obrisi_preporuku':
+		echo
+			'<div class="modal-header" style="background-color:#3F3F3F">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" style="color:white">Brisanje</h4>
+			</div>
+			<br>
+			<form class="form-horizontal" action="action.php" method="POST">
+
+				<input type="hidden" name="action_id" value="obrisi_preporuku">
+				<input type="hidden" name="film_id" value="'.$sFilmID.'">
+
+				<div class="form-group" style="text-align:center;">
+							<h4>
+								Jeste li sigurni da želite obrisati preporučeni film?
+							</h4>
+				</div>
+				<div class="modal-footer">
+							<button type="submit" class="btn btn-danger btn-s">Obriši</button>
+				</div>
+			</form>';
+	break;
+
 	case 'novi_korisnik':
 		echo 
 		'<div class="modal-header" style="background-color:#3F3F3F">
@@ -104,44 +127,6 @@ switch ($sModalID)
 						<button type="submit" class="btn btn-danger btn-s">Registriraj se</button>
 				</div>
 			</form>';
-	break;
-
-	case 'preporuci_film':
-?>
-		<div class="modal-header" style="background-color:#3F3F3F">
-			<button type="button" class="close" data-dismiss="modal" aria-hidden="true" style="color:white">&times;</button>
-			<h4 class="modal-title" style="color:white">Preporuči film</h4>
-		</div>
-		<br>
-		<div class="modal-body" ng-controller="korisniciController">
-			<form class="form-horizontal" action="action.php" method="POST" >
-
-				<input type="hidden" name="action_id" value="preporuci_film">
-				
-				<div class="col-lg-4 col-xs-4"></div>
-				<h4 class="col-lg-6 col-xs-6">Odaberi korisnika/e:</h4>
-
-				<div>
-					<table>
-						<thead>
-							<th>Ime</th>
-							<th>Korisničko ime</th>
-						</thead>
-						<tbody>
-							<tr ng-repeat="oKorisnik in oKorisnici">
-								<td>{{$scope.oKorisnik.ime}}</td>
-								<td>{{oKorisnik.korisnicko_ime}}</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-				
-				<div class="modal-footer">
-						<button type="submit" class="btn btn-primary">Preporuči</button>
-				</div>
-			</form>
-		</div>
-<?php
 	break;
 }
 ?>

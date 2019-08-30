@@ -59,10 +59,10 @@ if(!empty($_SESSION['id']))
 		<br>
 		<input class="form-control col-lg-3 col-xs-3" ng-model="inputTekst" id="trazilica" type="text" placeholder="pretraži...">
 
-		<div ng-controller="filmoviTabliceController">
-			<naslovnica-film>
+		<div ng-controller="preporuceniFilmoviController">
+			<naslovnica-preporuceni>
 					<!-- direktiva za tablicu preporučenih filmova-->
-			</naslovnica-film>
+			</naslovnica-preporuceni>
 		</div>
 		
 		<div class="modal" id="modals" tabindex="-1" role="dialog" aria-labelledby="" aria-hiddeen="true">

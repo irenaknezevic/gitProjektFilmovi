@@ -19,8 +19,8 @@
 				<td class="tdPolje">{{oFilm.godina}}.</td>
 				<td class="tdPolje">{{oFilm.zanr}}</td>
 				<td class="tdPolje">{{oFilm.moja_ocjena}}</td>	
-				<td class="tdPolje"><a href="templates/prikaz_filma_temp.html" class="glyphicon glyphicon-search" aria-hidden="true" role="button" ng-click="dohvatiID(oFilm.film_id)"></a></td>
-				<td class="tdPolje"><a href="javascript:GetModal('modals.php?modal_id=obrisi_film&film_id='+localStorage.getItem('film_id'));" class="glyphicon glyphicon-trash" role="button" ng-click="dohvatiID(oFilm.film_id)"></a></td>
+				<td class="tdPolje"><a href="templates/prikaz_filma_temp.php" class="btn btn-default glyphicon glyphicon-search" aria-hidden="true" role="button" ng-click="dohvatiID(oFilm.film_id)"></a></td>
+				<td class="tdPolje"><a href="javascript:GetModal('modals.php?modal_id=obrisi_film&film_id='+localStorage.getItem('film_id'));" class="btn btn-danger glyphicon glyphicon-trash" role="button" ng-click="dohvatiID(oFilm.film_id)"></a></td>
 			</tr>
 		</tbody>
 

@@ -51,7 +51,7 @@ if(!empty($_SESSION['id']))
                         $_SESSION['slikaKorisnika'] = $oKorisnik['slika'];
                     ?>
                 >
-                <input class="btn" type="file" name="inputAzuriranjeSlike" accept="image/*">
+                <input id="slikaInput" class="btn" type="file" name="inputAzuriranjeSlike" accept="image/*">
             </div>
             <div id="detalji" class="form-group">
                     <label for="inputAzuriranjeImena">Ime</label>

@@ -1,3 +1,25 @@
+<?php 
+
+session_start();
+if(empty($_SESSION['id']))
+{
+    header("Location: ../pocetna.php");
+}
+else
+{
+
+    if(!empty($_SESSION['preporuka']))
+    {
+    ?>
+        <script type="text/javascript">
+            alert("Preporučili ste film!");
+        </script>
+    <?php
+    unset($_SESSION['preporuka']);
+    }
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head lang="en">
@@ -100,3 +122,8 @@
     <script type="text/javascript" src="../js/globals.js"></script>
 </body>
 </html>
+
+<?php 
+
+}
+ ?>

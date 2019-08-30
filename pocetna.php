@@ -5,7 +5,7 @@ if(!empty($_SESSION['usernameTaken']))
 {
 ?>
 	<script type="text/javascript">
-		alert('Korisničko ime je zauzeto!');
+		alert('Korisničko ime/nadimak koji ste odabrali je zauzet/o, pokušajte ponovno!');
 	</script>
 <?php
 	unset($_SESSION['usernameTaken']);

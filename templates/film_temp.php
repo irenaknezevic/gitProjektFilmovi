@@ -2,6 +2,7 @@
 
 if(empty($_POST['imdbId']))
 {
+    
 ?>
     <script type="text/javascript">
         alert("Nije moguće dohvatiti film");
@@ -9,7 +10,8 @@ if(empty($_POST['imdbId']))
     </script>
 <?php
 }
-
+else
+{
  ?>
 <!DOCTYPE html>
 <html ng-app="filmovi-app">
@@ -79,3 +81,7 @@ if(empty($_POST['imdbId']))
     <script type="text/javascript" src="../js/app.js"></script>
 </body>
 </html>
+
+<?php
+}
+?>

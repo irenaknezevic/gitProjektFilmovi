@@ -10,8 +10,7 @@ if(!empty($_POST['korime']) && !empty($_POST['lozinka']))
 	$sQuery = 'SELECT * FROM korisnici WHERE korisnicko_ime="'.$_POST['korime'].'" AND lozinka="'.$_POST['lozinka'].'"';
 }
 elseif (!empty($_SESSION['id'])) {
-	$sQuery = "SELECT * FROM korisnici WHERE korisnik_id=".$_SESSION['korisnik_id'];
-	session_destroy();
+	header("Location: filmovi.php");
 }
 else
 {

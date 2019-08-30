@@ -31,7 +31,7 @@ $oJson = array();
 switch($action_id)
 {
 	case 'novi_korisnik':
-		$sQuery = "SELECT * FROM korisnici WHERE korisnicko_ime='".$_POST['korime']."'";
+		$sQuery = "SELECT * FROM korisnici WHERE korisnicko_ime='".$_POST['korime']."' OR nadimak = '".$_POST['nadimak']."'";
 
 		$result = $oConnection->query($sQuery);
 		// var_dump($result);
@@ -75,7 +75,7 @@ switch($action_id)
 			$user = $resultUser->fetch(PDO::FETCH_ASSOC);
 
 			session_start();
-			$_SESSION['user_id'] = $user['korisnik_id'];
+			$_SESSION['id'] = $user['korisnik_id'];
 
 			header("Location: autentifikacija.php");
 		}
@@ -101,7 +101,7 @@ switch($action_id)
 			$korisnik = array(
 				'korisnicko_ime' => $oRow['korisnicko_ime'],
 				'ime' => $oRow['ime'],
-				'slika' => 'img/korisnik.png'
+				'slika' => $oRow['slika']
 			);
 
 			array_push($korisnici, $korisnik);
@@ -160,12 +160,12 @@ switch($action_id)
 			header("Location: filmovi.php");
 		}
 	break;
-	case 'spremiFilm':
+	/*case 'spremiFilm':
 		$film = json_decode($_POST['podaciFilma']);
 
 		session_start();
 		$korisnik_id = $_SESSION['id'];
-		/*var_dump($json);*/
+		//var_dump($json);
 		$sQueryAdd = "INSERT INTO filmovi (korisnik_id, naziv_filma, godina, zanr, trajanje, glumci, redatelj, slika, sadrzaj, moja_ocjena) VALUES (:id, :naziv, :godina, :zanr, :trajanje, :glumci, :redatelj, :slika, :sadrzaj, :moja_ocjena, :imdb_id) ";
 
 			$oStatement = $oConnection->prepare($sQueryAdd);
@@ -188,7 +188,7 @@ switch($action_id)
 				// var_dump($oData);
 				header("Location: filmovi.php");
 			}
-		break;
+		break;*/
 	case 'filmovi_korisnika':
 		session_start();
 		$korisnik_id = $_SESSION['id'];
@@ -234,7 +234,7 @@ switch($action_id)
 
 	case 'obrisi_film':
 		$sQueryDelete = "DELETE FROM filmovi WHERE film_id=".$film_id;
-		$oStatement = $oConnection->query($sQueryDelete);
+		$oConnection->query($sQueryDelete);
 		header("Location: filmovi.php");
 		// echo $sQueryDelete;
 	break;
@@ -252,17 +252,57 @@ switch($action_id)
 		while($oRow = $oRecord->fetch(PDO::FETCH_ASSOC))
 		{
 			$sQueryWrite = "INSERT INTO preporuceni_filmovi (posiljatelj_id, primatelj_id, imdb_id) VALUES (".$korisnik_id.", ".$oRow['korisnik_id'].", '".$_POST['film_id']."')";
-			
+
 			$oConnection->query($sQueryWrite);
 			
-			header("Location: filmovi.php");
+			header("Location: templates/prikaz_filma_temp.php");
 			session_start();
-			$_SESSION['preporuka'] = "Preporučili se film korisniku";
+			$_SESSION['preporuka'] = "preporuka";
 		}
 		
 		
 		/*var_dump($dbKorisnici);*/
 		/*header("Location: filmovi.php");*/
+	break;
+
+	case 'obrisi_preporuku':
+
+		session_start();
+		$korisnik_id = $_SESSION['id'];
+
+		$sQueryDelete = "DELETE FROM preporuceni_filmovi WHERE primatelj_id=".$korisnik_id." AND imdb_id='".$film_id."'";
+		$oConnection->query($sQueryDelete);
+		header("Location: preporuceni.php");
+
+	break;
+
+	case 'dohvati_preporucene_filmove':
+		session_start();
+		$korisnik_id = $_SESSION['id'];
+
+		$sQueryGetMovies = "SELECT * FROM preporuceni_filmovi WHERE primatelj_id =".$korisnik_id;
+
+		$oRecord = $oConnection->query($sQueryGetMovies);
+
+		while($oRow = $oRecord->fetch(PDO::FETCH_ASSOC))
+		{
+			$sQueryGetUser = "SELECT * FROM korisnici WHERE korisnik_id=".$oRow['posiljatelj_id'];
+
+			$oKorisnikDb = $oConnection->query($sQueryGetUser);
+
+			$korisnik = $oKorisnikDb->fetch(PDO::FETCH_ASSOC);
+
+			$oPreporuka = array();
+
+			$oPreporuka['posiljatelj'] = $korisnik['ime']." ".$korisnik['prezime']." (".$korisnik['nadimak'].")";
+			$oPreporuka['imdb_id'] = $oRow['imdb_id'];
+
+			array_push($oJson, $oPreporuka);
+		}
+
+		$json = json_encode($oJson);
+		echo $json;
+
 	break;
 
 	case 'azuriranje_profila':

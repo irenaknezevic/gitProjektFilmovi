@@ -189,6 +189,12 @@ oFilmoviModul.directive("naslovnicaFilm", function() {
 	};
 });
 
+oFilmoviModul.directive("naslovnicaPreporuceni", function() {
+	return {
+		restrict: "E",
+		templateUrl: "templates/tablicaPreporuceni.html"
+	};
+});
 
 //ZA PRIKAZ DETALJA O FILMU KOJI JE ODABRAN (prikaz_filma_temp.html)
 oFilmoviModul.controller('odabraniFilmController', function($scope, $http) {
@@ -221,6 +227,69 @@ oFilmoviModul.controller('korisniciController', function($scope, $http){
 	}, function(response){
 		console.log('Došlo je do pogreške!');
 	});
+});
+
+//CONTROLLER ZA PREPORUCENE FILMOVE
+oFilmoviModul.controller('preporuceniFilmoviController', function($scope, $http){
+	$scope.oPreporuke = [];
+	$scope.oFilmovi = [];
+
+	$http({
+		method: "GET",
+		url: "action.php?action_id=dohvati_preporucene_filmove"
+	}).then(function(response){
+		$scope.oPreporuke = response.data;
+		//console.log($scope.oPreporuke);
+
+		$scope.oPreporuke.forEach(function(pFilm){
+
+			$http({
+			method: "GET",
+			url: "http://www.omdbapi.com/?i="+pFilm['imdb_id']+"&apikey=e55c1343",
+			}).then(function(response) {
+				
+				var film = response.data;
+				var oFilm = {
+					naziv: film.Title,
+					godina: film.Year,
+					zanr: film.Genre,
+					imdb_id: pFilm['imdb_id'],
+					preporucitelj: pFilm['posiljatelj']
+				};
+
+				$scope.oFilmovi.push(oFilm);
+
+			},function(response) {
+				console.log('Došlo je do pogreške!');
+			});
+
+		console.log($scope.oFilmovi);
+
+		});
+		
+
+	}, function(response){
+		console.log(response);
+		console.log('Pogreška pri dohvaćanju preporučenih filmova');
+	});
+
+	$scope.otvoriFilm = function(filmId) {
+		$http({
+    		method: 'POST',
+		    url: 'templates/film_temp.php',
+		    data: "imdbId=" + filmId,
+		    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+		}).then(function(response){
+			window.location.href = "templates/film_temp.php";
+		}, function(response){
+			console.log(response);
+		});
+	}
+
+	$scope.dohvatiID = function(film) {
+		console.log(film);
+		localStorage.setItem("film_id", film);
+	}
 });
 
 
@@ -328,51 +397,3 @@ function OdznaciSveKorisnike()
 
 	CheckboxKorisnici();	
 }
-//funkcije za dropdown - ocjene i žanr
-
-// function mojaFunkcijaOcjene()
-// {
-// 	var selectOcjena = document.getElementById("mojaOcjena");
-// 	var filterOcjena = selectOcjena.value.toLowerCase();
-// 	var table = document.getElementById("mojaTablica");
-// 	var oTr = table.getElementsByTagName("tr");
-// 	for(var i=0; i<oTr.length; i++)
-// 	{
-// 		var oTd = oTr[i].getElementsByTagName("td")[4];
-// 		if(oTd)
-// 		{
-// 			if(oTd.innerHTML.toLowerCase().indexOf(filterOcjena) > -1)
-// 			{
-// 				oTr[i].style.display = "";
-// 			}
-// 			else 
-// 			{
-// 				oTr[i].style.display = "none";
-// 			}
-// 		}
-// 	}
-// }
-
-// function mojaFunkcijaZanr()
-// {
-// 	var selectZanr = document.getElementById("mojSelekt");
-// 	var filterZanr = selectZanr.value.toLowerCase();
-// 	var table = document.getElementById("mojaTablica");
-// 	var oTr = table.getElementsByTagName("tr");
-// 	for(var i=0; i<oTr.length; i++)
-// 	{
-// 		var oTd = oTr[i].getElementsByTagName("td")[3];
-// 		if(oTd)
-// 		{
-// 			if(oTd.innerHTML.toLowerCase().indexOf(filterZanr) > -1)
-// 			{
-// 				oTr[i].style.display = "";
-// 			}
-// 			else 
-// 			{
-// 				oTr[i].style.display = "none";
-// 			}
-// 		}
-// 	}
-// }
-

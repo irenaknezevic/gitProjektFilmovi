@@ -1,0 +1,28 @@
+<div id="table-scroll" >
+	<table class="table table-hover" id="mojaTablica">
+		<thead>
+			<tr>
+				<th>R.br.</th>
+				<th>Naziv filma</th>
+				<th>Godina</th>
+				<th>Žanr</th>
+				<th>Preporučitelj</th>
+				<th>Pregled</th>
+				<th>Obriši</th>
+			</tr>
+		</thead>
+			
+		<tbody>
+			<tr ng-repeat="oFilm in oFilmovi | filter: inputTekst">
+				<td>{{$index + 1}}.</td>
+				<td class="tdPolje">{{oFilm.naziv}}</td>
+				<td class="tdPolje">{{oFilm.godina}}.</td>
+				<td class="tdPolje">{{oFilm.zanr}}</td>
+				<td class="tdPolje">{{oFilm.preporucitelj}}</td>	
+				<td class="tdPolje"><form action="templates/film_temp.php" method="POST"><input type="hidden" name="imdbId" value="{{oFilm.imdb_id}}"><button type="submit" class="btn btn-default glyphicon glyphicon-search"></button></form></td>
+				<td class="tdPolje"><a href="javascript:GetModal('modals.php?modal_id=obrisi_preporuku&film_id='+localStorage.getItem('film_id'));" class="btn btn-danger glyphicon glyphicon-trash" role="button" ng-click="dohvatiID(oFilm.imdb_id)"></a></td>
+			</tr>
+		</tbody>
+
+	</table>
+</div>
