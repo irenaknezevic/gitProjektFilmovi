@@ -57,8 +57,15 @@ else
                 <p><span>Ukratko:</span> {{film.sadrzaj}}</p>
                 <br>
                 <p><span>Moja ocjena:</span> {{film.moja_ocjena}}</p>
+                <button data-toggle="modal" data-target="#modalOcjena" class="btn btn-primary btn-s" id="ocjena">Promijeni ocjenu</button>
                 <br>
             </div> 
+
+            <div id="tablica_ocjena" ng-controller="ocjeneFilmaController">
+                <tablica-ocjena>
+                    <!-- DIREKTIVA -->
+                </tablica-ocjena>
+            </div>
 
             <!-- PREPORUCI FILM -->
             <div class="modal" id="modals" tabindex="-1" role="dialog" aria-labelledby="" aria-hiddeen="true">
@@ -106,6 +113,41 @@ else
                                         <button id="odznaciKorisnike" onclick="OdznaciSveKorisnike()" class="btn btn-danger" type="button">Odznači sve</button>
 
                                         <button type="submit" class="btn btn-primary">Preporuči</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PROMIJENI OCJENU FILMA -->
+            <div class="modal" id="modalOcjena" tabindex="-1" role="dialog" aria-labelledby="" aria-hiddeen="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header" style="background-color:#3F3F3F">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" style="color:white">&times;</button>
+                            <h4 class="modal-title" style="color:white">Promjena ocjene filma</h4>
+                        </div>
+                        <br>
+                        <div class="modal-body">
+                            <form class="form-horizontal" action="../action.php" method="POST" >
+
+                                <input type="hidden" name="action_id" value="promjena_ocjene">
+
+                                <input type="hidden" name="imdb_id" value="{{film.imdb_id}}">
+
+                                <select name="novaOcjena" required class="form-control">
+                                    <option value="" selected disabled>Odaberi ocjenu:</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                                <br>
+                                <div class="modal-footer">
+                                    <button data-dismiss="modal" class="btn btn-danger">Odustani</button>
+                                    <button type="submit" class="btn btn-primary">Spremi</button>
                                 </div>
                             </form>
                         </div>

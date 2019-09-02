@@ -58,7 +58,7 @@ CREATE TABLE IF NOT EXISTS `bazafilmovi`.`ocjene` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `film_id` INT NULL,
   `ocjena` INT NULL,
-  `vrijeme_datum` VARCHAR(50) NULL,
+  `datum` VARCHAR(50) NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_ocjena_film`
     FOREIGN KEY (`film_id`)

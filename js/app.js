@@ -196,6 +196,7 @@ oFilmoviModul.directive("naslovnicaPreporuceni", function() {
 	};
 });
 
+
 //ZA PRIKAZ DETALJA O FILMU KOJI JE ODABRAN (prikaz_filma_temp.html)
 oFilmoviModul.controller('odabraniFilmController', function($scope, $http) {
 	$scope.oFilm = [];
@@ -211,6 +212,27 @@ oFilmoviModul.controller('odabraniFilmController', function($scope, $http) {
 	});
 });
 
+oFilmoviModul.controller('ocjeneFilmaController', function($scope, $http) {
+	$scope.oOcjeneFilma = [];
+
+	$http({
+		method: "GET",
+		url: "../action.php?action_id=dohvati_ocjene_filma&film_id="+localStorage.getItem("film_id")
+	}).then(function (response) {
+		console.log(response.data);
+		$scope.oOcjeneFilma = response.data;
+	},function(response) {
+		console.log('Pogreška! '+response);
+	});
+});
+
+//direktiva za zablicu ocjena
+oFilmoviModul.directive("tablicaOcjena", function() {
+	return {
+		restrict: "E",
+		templateUrl: "../templates/tablica_ocjene.html"
+	};
+});
 
 //CONTROLLER ZA KORISNIKE 
 oFilmoviModul.controller('korisniciController', function($scope, $http){

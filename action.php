@@ -2,8 +2,8 @@
 
 include 'connection.php';
 
-/*header('Content-type: text/json');
-header('Content-type: application/json; charset=utf-8');*/
+header('Content-type: text/json');
+header('Content-type: application/json; charset=utf-8');
 
 
 $action_id="";
@@ -148,7 +148,24 @@ switch($action_id)
 				);
 				$oStatement->execute($oData);
 				/*var_dump($oData);
-				echo $sQueryAdd;*/		
+				echo $sQueryAdd;*/
+
+				//ZAPISI U OCJENE 
+				$sQueryDohvatiFilm = "SELECT film_id FROM filmovi WHERE korisnik_id=".$korisnik_id." AND imdb_id='".$_POST['imdbIdFilma']."'";
+				$dbFilm = $oConnection->query($sQueryDohvatiFilm);
+				$film = $dbFilm->fetch(PDO::FETCH_ASSOC);
+
+					//DOHVATI DATUM
+					date_default_timezone_set('Europe/Zagreb');
+					$datum = "'".date('d.m.Y.')."'";
+					//------------------------------
+
+				$sQueryZapisiOcjenu = "INSERT INTO ocjene (film_id, ocjena, datum) VALUES (".$film['film_id'].", ".$_POST['moja_ocjena'].", ".$datum.")";
+
+				$oConnection->query($sQueryZapisiOcjenu);
+				//------------------------------------
+
+						
 				header("Location: filmovi.php");
 
 			}
@@ -232,6 +249,19 @@ switch($action_id)
 		echo $info;
 	break;
 
+	case 'dohvati_ocjene_filma':
+		$sQuery = "SELECT * FROM ocjene WHERE film_id=".$film_id;
+
+		$sRezultat = $oConnection->query($sQuery);
+
+		while($oRow = $sRezultat->fetch(PDO::FETCH_ASSOC))
+		{
+			array_push($oJson, $oRow);
+		}
+		$ocjene = json_encode($oJson);
+		echo $ocjene;
+	break;
+
 	case 'obrisi_film':
 		$sQueryDelete = "DELETE FROM filmovi WHERE film_id=".$film_id;
 		$oConnection->query($sQueryDelete);
@@ -286,22 +316,73 @@ switch($action_id)
 
 		while($oRow = $oRecord->fetch(PDO::FETCH_ASSOC))
 		{
-			$sQueryGetUser = "SELECT * FROM korisnici WHERE korisnik_id=".$oRow['posiljatelj_id'];
+			$sQueryCheckMovie = "SELECT * FROM filmovi WHERE korisnik_id=".$korisnik_id." AND imdb_id='".$oRow['imdb_id']."'";
+			$checkResult = $oConnection->query($sQueryCheckMovie);
 
-			$oKorisnikDb = $oConnection->query($sQueryGetUser);
+			if($check = $checkResult->fetch(PDO::FETCH_ASSOC))
+			{
+				//var_dump($check);
+				$sQueryDelete = "DELETE FROM preporuceni_filmovi WHERE primatelj_id=".$korisnik_id." AND imdb_id='".$oRow['imdb_id']."'";
 
-			$korisnik = $oKorisnikDb->fetch(PDO::FETCH_ASSOC);
+				$oConnection->query($sQueryDelete);
+			}
+			else
+			{
+				$sQueryGetUser = "SELECT * FROM korisnici WHERE korisnik_id=".$oRow['posiljatelj_id'];
 
-			$oPreporuka = array();
+				$oKorisnikDb = $oConnection->query($sQueryGetUser);
 
-			$oPreporuka['posiljatelj'] = $korisnik['ime']." ".$korisnik['prezime']." (".$korisnik['nadimak'].")";
-			$oPreporuka['imdb_id'] = $oRow['imdb_id'];
+				$korisnik = $oKorisnikDb->fetch(PDO::FETCH_ASSOC);
 
-			array_push($oJson, $oPreporuka);
+				$oPreporuka = array();
+
+				$oPreporuka['posiljatelj'] = $korisnik['ime']." ".$korisnik['prezime']." (".$korisnik['nadimak'].")";
+				$oPreporuka['imdb_id'] = $oRow['imdb_id'];
+
+				array_push($oJson, $oPreporuka);
+			}
 		}
 
 		$json = json_encode($oJson);
 		echo $json;
+
+	break;
+
+	case 'promjena_ocjene':
+
+		session_start();
+		$korisnik_id = $_SESSION['id'];
+
+		$imdb_id = $_POST['imdb_id'];
+
+		//DOHVATI FILM
+		$sQueryFilm = "SELECT * FROM filmovi WHERE korisnik_id=".$korisnik_id." AND imdb_id='".$imdb_id."'";
+
+		$dbFilm = $oConnection->query($sQueryFilm);
+		$film = $dbFilm->fetch(PDO::FETCH_ASSOC);
+
+		$film_id = $film['film_id'];
+		//-------------------------------------
+
+		//DOHVATI DATUM
+		date_default_timezone_set('Europe/Zagreb');
+		$datum = "'".date('d.m.Y.')."'";
+		//------------------------------
+
+
+		if(!empty($_POST['novaOcjena']))
+		{
+			$sQueryUpdateOcjene = "UPDATE filmovi SET moja_ocjena=".$_POST['novaOcjena']." WHERE film_id=".$film_id;
+
+			$oConnection->query($sQueryUpdateOcjene);
+
+			$sQueryZapisiOcjenu = "INSERT INTO ocjene (film_id, ocjena, datum) VALUES (".$film_id.", ".$_POST['novaOcjena'].", ".$datum.")";
+
+			$oConnection->query($sQueryZapisiOcjenu);
+
+			header("Location: templates/prikaz_filma_temp.php");
+		}
+
 
 	break;
 
