@@ -18,6 +18,16 @@ else
     unset($_SESSION['preporuka']);
     }
 
+    if(!empty($_SESSION['ocjenaPrazna']))
+    {
+    ?>
+        <script type="text/javascript">
+            alert("Niste odabrali ocjenu!");
+        </script>
+    <?php
+        unset($_SESSION['ocjenaPrazna']);
+    }
+
 ?>
 
 <!DOCTYPE html>
@@ -139,14 +149,24 @@ else
 
                                 <input type="hidden" name="imdb_id" value="{{film.imdb_id}}">
 
-                                <select name="novaOcjena" required class="form-control">
+                                <!-- <select name="novaOcjena" required class="form-control">
                                     <option value="" selected disabled>Odaberi ocjenu:</option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>
                                     <option value="4">4</option>
                                     <option value="5">5</option>
-                                </select>
+                                </select> -->
+                                <label>Odaberite ocjenu:</label>
+                                <br>
+                                <input type="hidden" name="novaOcjena" value="" required>
+
+                                <button class="btn ocjenaButtons" type="button" onclick="ocjenaButton(1)">1</button>
+                                <button class="btn ocjenaButtons" type="button" onclick="ocjenaButton(2)">2</button>
+                                <button class="btn ocjenaButtons" type="button" onclick="ocjenaButton(3)">3</button>
+                                <button class="btn ocjenaButtons" type="button" onclick="ocjenaButton(4)">4</button>
+                                <button class="btn ocjenaButtons" type="button" onclick="ocjenaButton(5)">5</button>
+                                <br>
                                 <br>
                                 <div class="modal-footer">
                                     <button data-dismiss="modal" class="btn btn-danger">Odustani</button>

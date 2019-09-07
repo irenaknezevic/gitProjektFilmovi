@@ -419,3 +419,10 @@ function OdznaciSveKorisnike()
 
 	CheckboxKorisnici();	
 }
+
+function ocjenaButton(ocjena)
+{
+	var novaOcjena = document.querySelector('input[name="novaOcjena"]');
+
+	novaOcjena.setAttribute('value', ocjena);
+}

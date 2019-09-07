@@ -380,6 +380,13 @@ switch($action_id)
 
 			$oConnection->query($sQueryZapisiOcjenu);
 
+			echo $sQueryZapisiOcjenu;
+
+			header("Location: templates/prikaz_filma_temp.php");
+		}
+		else
+		{
+			$_SESSION['ocjenaPrazna'] = "true";
 			header("Location: templates/prikaz_filma_temp.php");
 		}
 

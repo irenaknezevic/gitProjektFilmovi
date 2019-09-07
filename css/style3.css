@@ -135,3 +135,20 @@ thead
 {
 	border-radius: 15px;
 }
+.ocjenaButtons
+{
+	font-weight: bold;
+	color: black;
+	width: 18%;
+}
+.ocjenaButtons:hover
+{
+	background-color: grey;
+	color: white;
+}
+.ocjenaButtons:focus
+{
+	background-color: #003049;
+	color: white;
+	outline: none;
+}
