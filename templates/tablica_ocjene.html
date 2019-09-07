@@ -1,18 +1,18 @@
 <div id="table-scroll">
-	<table class="table table-hover" id="mojaTablica">
-		<thead>
+	<table class="table table-hover" id="mojaTablicaOcjena">
+		<thead id="theadOcjene">
 			<tr>
-				<th>R.br.</th>
-				<th>Ocjena</th>
-				<th>Datum</th>
+				<th id="thOcjene">R.br.</th>
+				<th id="thOcjene">Ocjena</th>
+				<th id="thOcjene">Datum</th>
 			</tr>
 		</thead>
 			
-		<tbody>
+		<tbody id="tbodyOcjene">
 			<tr ng-repeat="oOcjena in oOcjeneFilma | filter: inputTekst">
-				<td>{{$index + 1}}.</td>
-				<td class="tdPolje">{{oOcjena.ocjena}}</td>
-				<td class="tdPolje">{{oOcjena.datum}}</td>	
+				<td id="tdOcjene">{{$index + 1}}.</td>
+				<td id="tdOcjene">{{oOcjena.ocjena}}</td>
+				<td id="tdOcjene">{{oOcjena.datum}}</td>	
 			</tr>
 		</tbody>
 

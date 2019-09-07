@@ -61,6 +61,9 @@ else
                 <br>
             </div> 
 
+            <br>
+            <br>
+            
             <div id="tablica_ocjena" ng-controller="ocjeneFilmaController">
                 <tablica-ocjena>
                     <!-- DIREKTIVA -->

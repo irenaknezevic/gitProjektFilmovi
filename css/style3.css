@@ -38,7 +38,7 @@ h1
 {
 	display: inline-block;
 	margin-left: 20px;
-	width: 500px;
+	width: 600px;
 	margin-top: 10px !important;
 }
 p
@@ -63,26 +63,60 @@ select
 {
 	max-width: 160px;
 }
-thead tr{
+
+
+
+/*CSS ZA TABLICU OCJENE*/
+#theadOcjene, #tbodyOcjene
+{
+	display: block;
+	width: 100%!important;
+}
+
+#thOcjene, #tdOcjene
+{
+	width: 44.25%!important;
+}
+
+#theadOcjene
+{
+	color: white;
+	background-color: #3F3F3F;
+}
+
+#mojaTablicaOcjena
+{
+	margin-top: 20px;
+	width: 50%;
+	margin-left: 28%;
+}
+/*-------------------------------------*/
+
+thead tr
+{
 	display: block;
 	width: 100%;
 }
-tbody{
+tbody
+{
 	display: block;
 	width: 100%;
 	max-height: 200px;
 	overflow-y: auto;
 }
-td, th{
+td, th
+{
 	width: 35%!important;
 }
-#slikaKorisnika{
+#slikaKorisnika
+{
 	width: 30px;
 	height: 30px;
 	padding: 0;
 	border-radius: 30px;
 }
-#odznaciKorisnike{
+#odznaciKorisnike
+{
 	display: none;
 }
 .modal-header
@@ -92,4 +126,12 @@ td, th{
 .modal-body
 {
 	border-radius: 10px;
+}
+thead
+{
+	border-radius: 5px;
+}
+.table
+{
+	border-radius: 15px;
 }

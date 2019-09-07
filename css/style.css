@@ -46,7 +46,13 @@ body
 	height: 100px;
 }
 
-.modal-content{
+/*.modal-content
+{
 	color: white;
 	background-color: rgba(0,0,0, 0.7);
+}*/
+
+h4
+{
+	font-weight: bold;
 }

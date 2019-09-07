@@ -37,7 +37,7 @@ if(!empty($_SESSION['id']))
 <body ng-app="filmovi-app">
 	<div class="navbar navbar-fixed-top">
 		<div class="container-fluid navbar-left">
-			<a href="preporuceni.php" id="preporuke">Preporučeni filmovi</a>
+			<h4><a href="preporuceni.php" id="preporuke">Preporučeni filmovi</a></h4>
 		</div>
 		<div class="container-fluid navbar-right">
 			<h4 id="korisnik">
